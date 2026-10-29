@@ -44,6 +44,16 @@
         ttl: 1
       loop: "{{ instances }}"
       when: action == "delete"
+
+    - name: delete Ec2 instances
+      amazon.aws.ec2_instance:
+        name: "roboshop-{{ item }}"
+        state: absent
+        region: us-east-a
+        wait: false
+      loop: "{{ instances }}"
+      when: action == "delete"
+
         
         
 
