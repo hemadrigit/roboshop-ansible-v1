@@ -13,7 +13,7 @@
         name: "roboshop-{{ item }}"
         image_id: "{{ ami_id }}"
         instance_type: c3.micro
-        security_group: "{{ item}}_sg"
+        security_group: "{{ item}}-sg"
         region: us-east-1
       loop: "{{ instances }}"
       when: action == "create"
