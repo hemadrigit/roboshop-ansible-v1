@@ -43,7 +43,7 @@
         type: A
         ttl: 1
       loop: "{{ instances }}"
-      when: state == "delete"
+      when: action == "delete"
         
         
 
