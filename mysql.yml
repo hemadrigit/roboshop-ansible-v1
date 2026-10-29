@@ -2,6 +2,8 @@
 - name: configure mysql server
   hosts: mysql
   become: yes
+  vars:
+    mysql_root_password: admin@123
   tasks:
     - name: Enable  mysql:8.4 on {{ inventory_hostname }}
       command:  dnf module enable mysql:8.4 -y
