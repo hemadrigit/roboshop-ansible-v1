@@ -23,7 +23,7 @@
     #  ansible.builtin.debug:
      #   msg: "{{ ec2_output }}"
     
-    - name: create Route3 recored
+    - name: create Route53 recored
       amazon.aws.route53:
         state: present
         zone: "{{ domain_name }}"
@@ -34,6 +34,16 @@
         overwrite: true
       loop: "{{ ec2_output.results }}"
       when: action == "create"
+
+    - name: delete route53 record
+      amazon.aws.route53:
+        state: absent
+        zone: "{{ domain_name }}"
+        record: "{{ item }}.{{ domain_name }}"
+        type: A
+        ttl: 1
+      loop: "{{ instances }}"
+      when: state == "delete"
         
         
 
