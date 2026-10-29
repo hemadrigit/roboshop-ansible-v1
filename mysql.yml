@@ -13,6 +13,6 @@
 
     - name: Enable and start mysql server
       ansible.builtin.service:
-         name: mysqld
-         state: restarted
-         enabled: yes
+        name: mysqld
+        state: restarted
+        enabled: yes
