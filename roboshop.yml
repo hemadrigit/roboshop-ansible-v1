@@ -16,7 +16,7 @@
         security_group: "{{ item}}_sg"
         region: us-east-1
       loop: "{{ instances }}"
-      when: acton == "create"
+      when: action == "create"
 
       
 
