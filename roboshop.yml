@@ -22,7 +22,19 @@
     - name: print ec2 ec2_output
       ansible.builtin.debug:
         msg: "{{ ec2_output }}"
-
-      
+    
+    - name: create Route3 recored
+      amazon.aws.route53:
+        state: present
+        zone: "{{ domain_name }}"
+        record: "{{ item.item }}.{{ domain_name }}"
+        type: A
+        ttl: 1
+        value: "{{ item.instances[0].private_id_address }}"
+        overwrite: true
+      loop: "{{ register.results }}"
+      when: action == "create"
+        
+        
 
 
