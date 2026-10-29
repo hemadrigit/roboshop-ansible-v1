@@ -17,6 +17,11 @@
         region: us-east-1
       loop: "{{ instances }}"
       when: action == "create"
+      register: ec2_output
+
+    - name: print ec2 ec2_output
+      ansible.builtin.debug:
+      msg: "print Ec2 output {{ ec2_output}}"
 
       
 
