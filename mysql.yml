@@ -1,0 +1,18 @@
+---
+- name: configure mysql server
+  hosts: mysql
+  become: yes
+  tasks:
+    - name: Enable  mysql:8.4 on {{ inventory_hostname }}
+      command:  dnf module enable mysql:8.4 -y
+
+    - name: Install mysql on {{ inventory_hostname }} server
+      ansible.builtin.package:
+         name: mysql
+         state: present
+
+    - name: Enable and start mysql server
+      ansible.builtin.service:
+         name: mysqld
+         state: restarted
+         enabled: yes
