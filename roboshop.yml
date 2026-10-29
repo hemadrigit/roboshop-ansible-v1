@@ -19,9 +19,9 @@
       when: action == "create"
       register: ec2_output
 
-    - name: print ec2 ec2_output
-      ansible.builtin.debug:
-        msg: "{{ ec2_output }}"
+    #- name: print ec2 ec2_output
+    #  ansible.builtin.debug:
+     #   msg: "{{ ec2_output }}"
     
     - name: create Route3 recored
       amazon.aws.route53:
@@ -32,7 +32,7 @@
         ttl: 1
         value: "{{ item.instances[0].private_id_address }}"
         overwrite: true
-      loop: "{{ register.results }}"
+      loop: "{{ ec2_output.results }}"
       when: action == "create"
         
         
