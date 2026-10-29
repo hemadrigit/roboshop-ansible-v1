@@ -12,7 +12,12 @@
        ansible.builtin.package:
          name: mongodb-org
          state: present
-     
+       register: install  
+
+     - name: Display mongod istall status
+       ansible.builtin.debug:
+         msg: "{{ install }}"  
+         
      - name: mongodb start service
        ansible.builtin.service:
          name: mongodb
