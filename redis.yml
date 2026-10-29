@@ -17,7 +17,15 @@
         regexp: '127.0.0.1'
         replace: '0.0.0.0'
 
+    - name: Disable protected module
+      ansible.builtin.lineinfile:
+        path: 
+        regexp: '^#?/protected-mode yes'
+        line: 'protected-mode no'
+
     - name: reload redis
       ansible.builtin.service:
         name: redis
         state: restarted
+
+    
