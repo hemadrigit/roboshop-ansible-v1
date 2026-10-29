@@ -1,0 +1,12 @@
+---
+- name: configure redis server
+  hosts: redis
+  become: yes
+  tasks:
+    - name: Enable redis
+      command: dnf module enable redis:7 -y
+
+    - name: install redis
+      ansible.builtin.package:
+        name: redis
+        state: present
