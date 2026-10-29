@@ -16,11 +16,12 @@
 
      - name: Display mongod istall status
        ansible.builtin.debug:
-         msg: "{{ install }}"  
-         
+         msg: "{{ install.stdout }}"  
+       ignore_errors: yes
+
      - name: mongodb start service
        ansible.builtin.service:
-         name: mongodb
+         name: mongod
          state: started
          enabled: yes
            
