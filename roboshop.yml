@@ -1,0 +1,21 @@
+---
+- name: create Ec2 instance and route 53
+  hosts: localhost
+  connection: local
+  vars: 
+    instances: ['mongodb', 'redis', 'mysql', 'rabbitmq']
+    ami_id: ami-0055977a6e828a4f4
+  action: create
+  domain_nam: gutha.shop
+  tasks: 
+    - name: create Ec2 instance
+      amazon.aws.ec2_instance:
+        name: "roboshop-{{ item }}"
+        image_id: "{{ ami_id }}"
+        instance_type: c3.micro
+        security_group: "{{ item}}_sg"
+      loop: "{{ instances }}"
+
+      
+
+
