@@ -8,7 +8,7 @@
 
     - name: Install mysql on {{ inventory_hostname }} server
       ansible.builtin.package:
-         name: mysql
+         name: mysql-server
          state: present
 
     - name: Enable and start mysql server
