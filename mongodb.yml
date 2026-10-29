@@ -7,4 +7,8 @@
        ansible.builtin.copy:
          src: mongodb.rpo
          dest: /etc/yum.repos.d/mongo.repo
-         
+
+     - name: Install mongodb
+       ansible.builtin.service:
+          name: mongodb-org
+          state: present
