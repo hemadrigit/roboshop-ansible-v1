@@ -14,14 +14,16 @@
          state: present
        register: install  
 
-     - name: Display mongod istall status
-       ansible.builtin.debug:
-         msg: "{{ install.stdout }}"  
-       ignore_errors: yes
-
      - name: mongodb start service
        ansible.builtin.service:
          name: mongod
          state: started
          enabled: yes
+
+     - name: replace IP address
+       ansible.builtin.replace:
+         path: /etc/mongod.conf
+         regexp: '127.0.0.1'
+         replace: '0.0.0.0'
+
            
