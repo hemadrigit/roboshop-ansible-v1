@@ -52,7 +52,7 @@
        
     - name: Install npm dependencies
       community.general.npm:
-         path: /app
+        path: /app
 
     - name: copy & configure systemD service
       ansible.builtin.template:
