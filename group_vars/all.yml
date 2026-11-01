@@ -2,3 +2,5 @@ ansible_user: ec2-user
 ansible_password: DevOps321
 mysql_root_password: admin@123
 mongodb_host: mongodb.gutha.shop
+redis_host: redis.gutha.shop
+catalog_host: catalog.gutha.shop
