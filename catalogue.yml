@@ -75,7 +75,7 @@
 
     - name: check produt community.general.npm
       ansible.builtin.debug:
-         msg: " product counts are {{ product_count }}"
+         msg: "{{ product_count }}"
 
     - name: load the products if count is 0
       command: mongosh --host "{{ mongodb_host }}" < /app/db/master-data.js
