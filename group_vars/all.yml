@@ -3,6 +3,7 @@ ansible_password: DevOps321
 mysql_root_password: admin@123
 mongodb_host: mongodb.gutha.shop
 redis_host: redis.gutha.shop
+catalog_host: catalogue.gutha.shop
 user_host: user.gutha.shop
 cart_host: cart.gutha.shop
 shipping_host: shipping.gutha.shop
