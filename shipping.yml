@@ -6,10 +6,10 @@
     - name: configure enable maven:3.9
       command: dnf module enable maven:3.9 -y
 
-    - name: install maven:3.9
+    - name: install maven
       dnf: 
         name:
-          - maven:3.9
+          - maven
           - java-25-openjdk-devel
         state: present
 
