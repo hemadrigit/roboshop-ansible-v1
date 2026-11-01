@@ -8,7 +8,7 @@
         src: rabbitmq.repo
         dest: /etc/yum.repos.d/rabbitmq.repo
     
-    - name: Erlang and RabbitMQ
+    - name: install Erlang and RabbitMQ
       ansible.builtin.dnf:
         name:
           - erlang
