@@ -29,7 +29,7 @@
         path: /app
         state: absent
 
-    - name: catalog zip file 
+    - name: remove existing catalog zip file if any
       ansible.builtin.file:
         path: /tmp/catalogue.zip
         state: absent
@@ -43,5 +43,4 @@
       ansible.builtin.get_url:
         url:  https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
         dest: /tmp/catalogue.zip
-                
-
+        remoge_src: yes
