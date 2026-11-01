@@ -76,3 +76,16 @@
     - name: check produt community.general.npm
       ansible.builtin.debug:
          msg: " product counts are {{ product_count }}"
+
+    - name: load the products if count is 0
+      command: mongosh --host "{{ mongodb_host }}" < /app/db/master-data.js
+      when: product_count.stdout | int == 0
+
+    - name: Deamon reload
+      ansible.builtin.systemd_service:
+         daemon_reload: true
+
+    - name: start and enable catalogue
+      ansible.builtin.service:
+        state: restarted
+        enabled: true
