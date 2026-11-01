@@ -15,7 +15,7 @@
           state: present
 
     - name: create roboshop system cart 
-      ansible.builtin.cart:
+      ansible.builtin.user:
         name: roboshop
         system: true          # Creates a system account (UID < 1000)
         shell: /sbin/nologin # Disables interactive login
