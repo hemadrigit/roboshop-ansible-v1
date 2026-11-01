@@ -11,23 +11,8 @@
         name:
           - maven
           - java-25-openjdk-devel
+          - maven-openjdk25
         state: present
-
-    - name: Find java 25 path
-      shell: readlink -f $(ls /usr/lib/jvm/java-25-openjdk*/bin/java | head -1)
-      register: java25
-
-    - name: print the output
-      ansible.builtin.debug:
-        msg: "{{ java25 }}"
-
-    - name: make java25 as default
-      command: alternatives --set java {{ java25.stdout }}
-
-    - name: set java_home
-      ansible.builtin.copy:
-        content: "export JAVA_HOME={{ java25.stdout | dirname | dirname }}"
-        dest: /etc/profile.d/java.sh
 
     - name: create roboshop system user 
       ansible.builtin.user:
@@ -69,5 +54,4 @@
       command: mvn clean package
       args:
         chdir: /app
-      environment:
-        MAVEN_OPTS: "-Djdk.tls.namedGroups=\"secp256r1,secp384r1,ffdhe2048\""
+      
