@@ -1,0 +1,31 @@
+---
+- name: configure rabbitmq
+  hosts: rabbitmq
+  tasks:
+    - name: copy rabbitmq repo file
+      ansible.builtin.copy:
+        src: rabbitmq.repo
+        dest: /etc/yum.repos.d/rabbitmq.repo
+    
+    - name: Erlang and RabbitMQ
+      ansible.builtin.dnf:
+        name:
+          - erlang
+          - rabbitmq-server
+        state: present
+
+    - name: enable and start rabbitmq server
+      ansible.builtin.service:
+        name: rabbitmq-server
+        state: started
+        enabled: yes
+
+    - name: create rabbit mq ec2-user
+      community.rabbitmq.rabbitmq_user:
+        user: rabbitmq
+        password: {{ rabbitmq_pass }}
+        vhost: /
+        configure_priv: .*
+        read_priv: .*
+        write_priv: .*
+        state: present
