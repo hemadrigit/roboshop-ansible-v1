@@ -66,6 +66,7 @@
         ttl: 1
       loop: "{{ instances }}"
       when: action == "delete" and item.item == "frontend"
+      ignore_errors: yes
 
     - name: delete Ec2 instances
       amazon.aws.ec2_instance:
