@@ -35,6 +35,18 @@
       loop: "{{ ec2_output.results }}"
       when: action == "create"
 
+    - name: create Route53 recored for forend with public IP
+      amazon.aws.route53:
+        state: present
+        zone: "{{ domain_name }}"
+        record: "{{ item.item }}.{{ domain_name }}"
+        type: A
+        ttl: 1
+        value: "{{ item.instances[0].public_ip_address }}"
+        overwrite: true
+      loop: "{{ ec2_output.results }}"
+      when: action == "create" and item.item == "frontend"
+
     - name: delete route53 record
       amazon.aws.route53:
         state: absent
@@ -44,6 +56,16 @@
         ttl: 1
       loop: "{{ instances }}"
       when: action == "delete"
+
+    - name: delete route53 record for rontend
+      amazon.aws.route53:
+        state: absent
+        zone: "{{ domain_name }}"
+        record: "{{ domain_name }}"
+        type: A
+        ttl: 1
+      loop: "{{ instances }}"
+      when: action == "delete" and item.item == "frontend"
 
     - name: delete Ec2 instances
       amazon.aws.ec2_instance:
