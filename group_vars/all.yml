@@ -13,3 +13,4 @@ shipping_host: shipping.gutha.shop
 payment_host: payment.gutha.shop
 shipping_db_user: shipping
 shipping_db_password: RoboShop@1
+rabbitmq_host: rabbitmq.gutha.shop
