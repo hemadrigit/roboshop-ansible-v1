@@ -12,7 +12,7 @@
           - maven
           - java-25-openjdk-devel
           - maven-openjdk25
-          - mysql-server
+          - mysql
         state: present
 
     - name: create roboshop system user 
