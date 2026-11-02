@@ -50,8 +50,43 @@
         dest: /app
         remote_src: yes
 
-    - name: Install dependencies
+    - name: Build shipping
       command: mvn clean package
       args:
         chdir: /app
       
+    - name: move shipping.jar
+      command:  mv target/shipping.jar shipping.jar
+      args:
+        chdir: /app
+
+    - name: check cities data exist or not
+      command: mysql -h "{{ mysql_host }}" -u root -p{{ mysql_root_password }} -N -B -e "SELECT COUNT(*) FROM cities.cities;"
+      register: cities_count
+
+    - name: print cities COUNT(*)
+      debug:
+        msg: "{{ cities_count }}"
+
+    - name: load cities data into mysql
+      command: mysql -h "{{ mysql_host }}" -u root -p{{ mysql_root_password }} < /app/db/master-data.sql
+      when: cities_count.rc != 0 or cities_count.stdout | int == 0
+
+    - name: create app user in mysql
+      command: mysql -h "{{ mysql_host }}" -u root -p{{ mysql_root_password }} < /app/db/master-data.sql
+      
+    - name: copy & configure systemD service
+      ansible.builtin.template:
+        src: shipping.service.j2
+        dest: /etc/systemd/system/shipping.service
+
+    - name: Deamon reload
+      ansible.builtin.systemd_service:
+         daemon_reload: true
+
+    - name: start and enable shipping
+      ansible.builtin.service:
+        name: shipping
+        state: restarted
+        enabled: true
+
