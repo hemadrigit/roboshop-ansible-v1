@@ -24,7 +24,7 @@
     - name: create rabbit mq ec2-user
       community.rabbitmq.rabbitmq_user:
         user: rabbitmq
-        password: "{{ rabbitmq_pass }}"
+        password: "{{ rabbitmq_password }}"
         vhost: /
         configure_priv: .*
         read_priv: .*
